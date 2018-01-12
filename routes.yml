@@ -1,0 +1,30 @@
+options:
+  callables:
+    namespaces: App\Controller
+  middlewares:
+    namespaces: App\Middleware
+routes:
+  front_group:
+    pattern: "/"
+    middlewares: [ HelloMiddleware ]
+    routes:
+      root:
+        callable: IndexController@index
+      hello:
+        pattern: "/hello[/{name}]"
+        arguments:
+          name: "gtnsimon"
+        callable: IndexController@hello
+  accounts_group:
+    pattern: "/accounts"
+    routes:
+      accounts.index:
+        callable: IndexController@index
+      accounts.login:
+        pattern: "/login"
+        callable: IndexController@index
+      accounts_me_group:
+        pattern: "/me"
+        routes:
+          accounts.me.index:
+            callable: IndexController@index

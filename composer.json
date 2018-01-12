@@ -1,0 +1,23 @@
+{
+    "name": "gtnsimon/slim-yaml-routes",
+    "description": "YAML routes definitions for Slim Framework 3",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gaëtan Simon",
+            "email": "gaetan.simon@jack.agency"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "gtnsimon\\Slim\\YAML\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "slim/slim": "^3.9",
+        "symfony/yaml": "^4.0"
+    }
+}
