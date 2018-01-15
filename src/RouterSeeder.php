@@ -104,8 +104,6 @@ class RouterSeeder
 
                 // group mapping is finished so we remove it
                 $this->router->popGroup();
-
-                // throw new \Exception("Group definitions not yet implemented");
             } else { // definition of a route
                 $methods = $route['methods'] ?? ['GET'];
                 $pattern = $route['pattern'] ?? null;
@@ -120,14 +118,12 @@ class RouterSeeder
                 // no pattern
                 if ($pattern === null) {
                     $pattern = "[/]";
-                     // throw new \LogicException("A route must have a 'pattern' key");
                 }
 
                 // no callable
                 if ($callable === null) {
                     throw new \LogicException("A route must have a 'callable' key");
                 } else {
-                    // $callable = str_replace('::', ':', $callable);
                     $callable = str_replace('@', ':', $callable);
                 }
 
