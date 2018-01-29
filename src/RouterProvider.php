@@ -7,6 +7,14 @@ use Psr\Container\ContainerInterface;
 use Slim\Interfaces\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * RouterProvider
+ * ==============
+ *
+ * Slim Framework 3 provider.
+ *
+ * @package gtnsimon\Slim\YAML
+ */
 class RouterProvider implements ServiceProviderInterface
 {
     /**
@@ -38,15 +46,12 @@ class RouterProvider implements ServiceProviderInterface
             // parse YAML file as array
             $routes = Yaml::parseFile($this->routesFile);
 
-            // start seeding the router
-            $routerSeeder = (new RouterSeeder(
+            return (new RouterSeeder(
                 $router,
                 $container,
                 $routes['routes'] ?? [],
                 $routes['options'] ?? []
-            ));
-
-            return $router;
+            ))->getRouter();
         });
     }
 }

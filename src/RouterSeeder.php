@@ -3,13 +3,18 @@ namespace gtnsimon\Slim\YAML;
 
 use Psr\Container\ContainerInterface;
 use Slim\Interfaces\RouterInterface;
-use Slim\MiddlewareAwareTrait;
 use Slim\RouteGroup;
 
+/**
+ * RouterSeeder
+ * ============
+ *
+ * YAML routes definitions for Slim Framework 3.
+ *
+ * @package gtnsimon\Slim\YAML
+ */
 class RouterSeeder
 {
-    use MiddlewareAwareTrait;
-
     /**
      * Default options.
      * @var array
@@ -53,6 +58,14 @@ class RouterSeeder
         $this->options = array_merge($this->options, $options);
 
         $this->map($routes);
+    }
+
+    /**
+     * @return RouterInterface
+     */
+    public function getRouter(): RouterInterface
+    {
+        return $this->router;
     }
 
     /**
@@ -128,10 +141,13 @@ class RouterSeeder
                 }
 
                 // creating the new route
-                $Route = $this->router->map($methods, $pattern, $this->preprendNamespace($callable, $this->options['callables']['namespaces']));
-                $Route->setName($routeName);
-                // default arguments values
-                $Route->setArguments($route['arguments'] ?? []);
+                $Route = $this->router->map(
+                    $methods,
+                    $pattern,
+                    $this->preprendNamespace($callable, $this->options['callables']['namespaces'])
+                )
+                    ->setName($routeName)
+                    ->setArguments($route['arguments'] ?? []);
 
                 // add route middlewares
                 foreach ($middlewares as $middleware) {
@@ -146,7 +162,7 @@ class RouterSeeder
      * @param string $namespace
      * @return string
      */
-    public function preprendNamespace(string $string, string $namespace): string
+    protected function preprendNamespace(string $string, string $namespace): string
     {
         if (substr($string, 0, 1) !== "\\") {
             $string = $namespace . "\\" . $string;
